@@ -11,6 +11,21 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   var _name = '';
   var _tapOnButton = false;
+  final _formKey = GlobalKey<FormState>();
+
+  void moveToHome() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _tapOnButton = true;
+      });
+      await Future.delayed(Duration(milliseconds: 1200));
+      await Navigator.pushNamed(context, MyRoutes.homePage);
+      setState(() {
+        _tapOnButton = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -37,77 +52,75 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 32.0, vertical: 16.0),
-              child: Column(
-                children: [
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'User Name',
-                      hintText: 'Enter User Name',
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'User Name',
+                        hintText: 'Enter User Name',
+                      ),
+                      onChanged: (value) {
+                        setState(() {
+                          _name = value;
+                        });
+                      },
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'User name must not be empty';
+                        }
+                         return  null;
+                      },
                     ),
-                    onChanged: (value) {
-                      setState(() {
-                        _name = value;
-                      });
-                    },
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      hintText: 'Enter Password',
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        hintText: 'Enter Password',
+                      ),
+                      obscureText: true,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'password must not be empty';
+                        }
+                         return  null;
+                      },
                     ),
-                    obscureText: true,
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(
               height: 40.0,
             ),
-            InkWell(
-              onTap: () async {
-                setState(() {
-                  _tapOnButton = true;
-                });
-                await Future.delayed(Duration(milliseconds: 1200));
-                Navigator.pushNamed(context, MyRoutes.homePage);
-              },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 1),
-                width: _tapOnButton ? 50 : 150,
-                height: 50,
-                alignment: Alignment.center,
-                child: _tapOnButton
-                    ? Icon(
-                        Icons.done,
-                        color: Colors.white,
-                      )
-                    : Text(
-                        'Login',
-                        style: TextStyle(
+            Material(
+              color: Colors.deepPurple,
+              borderRadius: _tapOnButton
+                  ? BorderRadius.circular(50)
+                  : BorderRadius.circular(5),
+              child: InkWell(
+                onTap: () => moveToHome(),
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 1),
+                  width: _tapOnButton ? 50 : 150,
+                  height: 50,
+                  alignment: Alignment.center,
+                  child: _tapOnButton
+                      ? Icon(
+                          Icons.done,
                           color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                        )
+                      : Text(
+                          'Login',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: _tapOnButton
-                        ? BorderRadius.circular(50)
-                        : BorderRadius.circular(5)),
+                ),
               ),
             )
-            // ElevatedButton(
-            //   onPressed: () {
-            //     Navigator.pushNamed(context, MyRoutes.homePage);
-            //   },
-            //   child: Text('Login'),
-            //   style: TextButton.styleFrom(
-            //     minimumSize: Size(150, 40),
-            //     textStyle: TextStyle(
-            //       fontSize: 24,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
