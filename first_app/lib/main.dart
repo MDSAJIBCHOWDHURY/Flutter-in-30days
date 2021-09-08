@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
         theme: ThemeData(
           primarySwatch: Colors.deepPurple,
           fontFamily: GoogleFonts.lato().fontFamily,
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           fontFamily: GoogleFonts.lato().fontFamily,
         ),
         routes: {
-          MyRoutes.initialRoute: (context) => LoginPage(),
+          MyRoutes.initialRoute: (context) => HomePage(),
           MyRoutes.loginPage: (context) => LoginPage(),
           MyRoutes.homePage: (context) => HomePage(),
         });
