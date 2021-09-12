@@ -8,16 +8,9 @@ class ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      child: Text(
-        item.name,
-        style: TextStyle(
-          fontSize: 28,
-          color: Colors.blueAccent,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+    return ListTile(
+      leading: Text("${item.id}"),
+      title: Text(item.name),
     );
   }
 }

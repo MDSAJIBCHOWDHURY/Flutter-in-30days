@@ -1,0 +1,28 @@
+{
+    "people":[
+        {
+            "id":1,
+            "name":"Tahmid"
+        },
+        {
+            "id":2,
+            "name":"Sajib"
+        },
+        {
+            "id":3,
+            "name":"Ema"
+        },
+        {
+            "id":4,
+            "name":"Ihfaz"
+        },
+        {
+            "id":5,
+            "name":"Habib"
+        },
+        {
+            "id":6,
+            "name":"Jakira"
+        }
+    ]
+}
