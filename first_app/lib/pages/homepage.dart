@@ -20,6 +20,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _loading() async {
+    await Future.delayed(Duration(seconds: 5));
     final personJson = await rootBundle.loadString("assets/files/people.json");
     final decodeData = jsonDecode(personJson);
     final peopleData = decodeData["people"];
@@ -36,11 +37,15 @@ class _HomePageState extends State<HomePage> {
           'Catalog App',
         ),
       ),
-      body: ListView.builder(
-        itemCount: PeopleItem.items.length,
+      body:(PeopleItem.items!=null && PeopleItem.items!.isNotEmpty)?ListView.builder(
+        itemCount: PeopleItem.items!.length,
         itemBuilder: (context, index) {
-          return ItemWidget(item: PeopleItem.items[index]);
+          return ItemWidget(item: PeopleItem.items!.elementAt(index));
         },
+      ):Center(
+        child: CircularProgressIndicator(
+         color: Colors.yellow,
+        ),
       ),
       drawer: MyDrawer(),
     );
